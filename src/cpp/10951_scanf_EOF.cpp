@@ -1,0 +1,12 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main(void){
+	int a, b;
+
+	while(scanf("%d %d", &a, &b) != EOF){
+		printf("%d\n", a+b);
+	}
+}
