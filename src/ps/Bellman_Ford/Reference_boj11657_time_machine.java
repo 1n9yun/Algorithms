@@ -89,15 +89,18 @@ public class Reference_boj11657_time_machine {
 		int n = sc.nextInt();
 		int m = sc.nextInt();
 		
+//		인접 리스트 선언
 		ArrayList<Edge>[] adjList = new ArrayList[n+1];
 		for(int i=1;i<=n;i++) adjList[i] = new ArrayList<>();
 		
+//		인접 리스트 만들기
 		for(int i=0;i<m;i++) {
 			adjList[sc.nextInt()].add(new Edge(sc.nextInt(), sc.nextInt()));
 		}
 		
 		int[] ans = new int[n+1];
 		Arrays.fill(ans, Integer.MAX_VALUE);
+//		출발점
 		ans[1] = 0;
 		
 		for(int t=1;t<=n;t++) {
@@ -110,6 +113,7 @@ public class Reference_boj11657_time_machine {
 			}
 		}
 		
+//		싸이클 체크
 		int[] cycleCheck = ans.clone();
 		for(int i=1;i<=n;i++) {
 			if(cycleCheck[i] == Integer.MAX_VALUE) continue;

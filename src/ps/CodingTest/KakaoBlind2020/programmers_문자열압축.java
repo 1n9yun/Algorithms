@@ -1,4 +1,4 @@
-package ps.kakao_blind_2020;
+package ps.CodingTest.KakaoBlind2020;
 
 public class programmers_문자열압축 {
 	public static int solution1(String s) {
