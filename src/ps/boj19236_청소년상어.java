@@ -1,6 +1,5 @@
 package ps;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class boj19236_청소년상어 {
@@ -21,10 +20,6 @@ public class boj19236_청소년상어 {
 		public void turn_anti45() {
 			this.dir = this.dir % 8 + 1;
 		}
-		@Override
-		public String toString() {
-			return "Fish [r=" + r + ", c=" + c + ", num=" + num + ", dir=" + dir + "]";
-		}
 		public Fish clone() {
 			Fish res = new Fish();
 			res.r = this.r;
@@ -39,17 +34,6 @@ public class boj19236_청소년상어 {
 		public Shark() {
 			super();
 			this.num = 0;
-		}
-		public int eat(int target, Fish[] fishes, int[][] field) {
-			field[this.r][this.c] = -1;
-			field[fishes[target].r][fishes[target].c] = 0;
-			fishes[target].alive = false;
-			
-			this.r = fishes[target].r;
-			this.c = fishes[target].c;
-			this.dir = fishes[target].dir;
-			
-			return fishes[target].num;
 		}
 		public Shark clone() {
 			Shark res = new Shark();
@@ -77,16 +61,17 @@ public class boj19236_청소년상어 {
 			}
 		}
 		fishes[0] = new Shark();
-		int ans = ((Shark) fishes[0]).eat(field[0][0], fishes, field);
+		int init = field[0][0];
+		fishes[0].r = fishes[init].r;
+		fishes[0].c = fishes[init].c;
+		fishes[0].dir = fishes[init].dir;
+		fishes[init].alive = false;
+		field[fishes[0].r][fishes[0].c] = 0;
 		
-		System.out.println(ans + solve(field, fishes));
+		System.out.println(init + solve(field, fishes));
 	}
 	
 	static int solve(int[][] field, Fish[] fishes) {
-		System.out.println(Arrays.toString(fishes));
-		print(field, fishes);
-		new Scanner(System.in).nextLine();
-		
 		int res = 0;
 		
 		int[][] newField = new int[FIELD_SIZE][FIELD_SIZE];
@@ -108,7 +93,7 @@ public class boj19236_청소년상어 {
 				int nRow = newFishes[i].r + delta[newFishes[i].dir][0];
 				int nCol = newFishes[i].c + delta[newFishes[i].dir][1];
 				
-				if(0<=nRow && nRow<FIELD_SIZE && 0<=nCol && nCol<FIELD_SIZE && !(newField[nRow][nCol] == 0 || newField[nRow][nCol] == -1)) {
+				if(0<=nRow && nRow<FIELD_SIZE && 0<=nCol && nCol<FIELD_SIZE && newField[nRow][nCol] != 0) {
 					moved = true;
 					fishSwap(i, newField[nRow][nCol], newFishes, newField);
 				}else {
@@ -116,13 +101,7 @@ public class boj19236_청소년상어 {
 					else newFishes[i].turn_anti45();
 				}
 			}
-//			print(newField, newFishes);
-//			new Scanner(System.in).nextLine();
 		}
-		
-		System.out.println("Moved!");
-		print(newField, fishes);
-		new Scanner(System.in).nextLine();
 		
 		Shark shark = (Shark) newFishes[0];
 		
@@ -132,8 +111,6 @@ public class boj19236_청소년상어 {
 		while(true) {
 			if(0<=nRow && nRow<FIELD_SIZE && 0<=nCol && nCol<FIELD_SIZE) {
 				if(newField[nRow][nCol] != -1) {
-					System.out.println("eat : " + newField[nRow][nCol]);
-					
 					int target = newField[nRow][nCol];
 					int sR = shark.r;
 					int sC = shark.c;
@@ -154,26 +131,24 @@ public class boj19236_청소년상어 {
 					newFishes[target].alive = true;
 					newField[newFishes[target].r][newFishes[target].c] = target;
 					newField[sR][sC] = 0;
-					
 				}
 				nRow += delta[shark.dir][0];
 				nCol += delta[shark.dir][1];
-			}else {
-				System.out.println("끗");
-				return res;
-			}
+			}else return res;
 		}
 	}		
 	
 	static void fishSwap(int left, int right, Fish[] fishes, int[][] field) {
-		field[fishes[left].r][fishes[left].c] = right;
-		field[fishes[right].r][fishes[right].c] = left;
-		
 		if(right == -1) {
+			field[fishes[left].r][fishes[left].c] = -1;
+			field[fishes[left].r + delta[fishes[left].dir][0]][fishes[left].c + delta[fishes[left].dir][1]] = left;
 			fishes[left].r += delta[fishes[left].dir][0];
 			fishes[left].c += delta[fishes[left].dir][1];
 			return;
 		}
+		
+		field[fishes[left].r][fishes[left].c] = right;
+		field[fishes[right].r][fishes[right].c] = left;
 		
 		int tR = fishes[left].r;
 		fishes[left].r = fishes[right].r;
@@ -183,19 +158,4 @@ public class boj19236_청소년상어 {
 		fishes[left].c = fishes[right].c;
 		fishes[right].c = tC;
 	}
-	
-	static void print(int[][] field, Fish[] fishes) {
-		System.out.println(Arrays.toString(fishes));
-		for(int i=0;i<field.length;i++) {
-			for(int j=0;j<field[i].length;j++) {
-				int arrow = 0;
-				if(field[i][j] != -1) arrow = fishes[field[i][j]].dir;
-				
-				System.out.print(field[i][j] + arrows[arrow] + "\t");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-	static String[] arrows = {"","↑", "↖", "←","↙","↓","↘","→","↗"};
 }

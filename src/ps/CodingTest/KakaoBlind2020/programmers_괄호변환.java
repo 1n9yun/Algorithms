@@ -1,4 +1,4 @@
-package ps.kakao_blind_2020;
+package ps.CodingTest.KakaoBlind2020;
 
 import java.util.Arrays;
 

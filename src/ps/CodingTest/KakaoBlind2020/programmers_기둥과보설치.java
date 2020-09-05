@@ -1,4 +1,4 @@
-package ps.kakao_blind_2020;
+package ps.CodingTest.KakaoBlind2020;
 
 public class programmers_기둥과보설치 {
 	public int[][] solution(int n, int[][] build_frame){
