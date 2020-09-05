@@ -1,0 +1,8 @@
+package ps;
+
+public class _04 {
+	
+	public static void main(String[] args) {
+		
+	}
+}
