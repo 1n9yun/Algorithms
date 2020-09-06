@@ -2,7 +2,7 @@ package ps;
 
 import java.util.Scanner;
 
-public class boj19236_youthShark {
+public class boj19236_청소년상어 {
 	static class Fish{
 		int r, c;
 		int num;
