@@ -1,4 +1,4 @@
-package ps;
+package ps.CodingTest.BrandiContest_2;
 
 import java.util.Scanner;
 

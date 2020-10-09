@@ -1,4 +1,4 @@
-package ps;
+package ps.CodingTest.BrandiContest_2;
 
 public class _04 {
 	
