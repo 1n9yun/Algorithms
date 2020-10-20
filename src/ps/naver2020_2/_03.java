@@ -3,6 +3,7 @@ package ps.naver2020_2;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// 감염 경로 막아서 최소한으로 감염시키기
 public class _03 {
 	public static void main(String[] args) {
 		int[][] edges = {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {1, 5}, {2, 6}, {3, 7}, {3, 8}, {3, 9}, {4, 10}, {4, 11}, {5, 12}, {5, 13}, {6, 14}, {6, 15}, {6, 16}, {8, 17}, {8, 18}};
