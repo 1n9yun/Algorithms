@@ -1,4 +1,4 @@
-package ps.naver2020_2;
+package ps.CondingTest.Naver2020_2;
 
 import java.util.ArrayList;
 import java.util.List;
