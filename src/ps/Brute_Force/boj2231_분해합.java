@@ -1,4 +1,4 @@
-package ps;
+package ps.Brute_Force;
 
 import java.util.Scanner;
 

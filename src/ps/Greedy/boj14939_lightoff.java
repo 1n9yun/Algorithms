@@ -1,4 +1,4 @@
-package ps;
+package ps.Greedy;
 
 import java.util.Scanner;
 

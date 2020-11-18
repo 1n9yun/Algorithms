@@ -1,4 +1,4 @@
-package ps;
+package ps.BackTracking;
 
 import java.util.Scanner;
 

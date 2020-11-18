@@ -1,4 +1,4 @@
-package ps;
+package ps.Binary_Search;
 
 import java.util.Scanner;
 
