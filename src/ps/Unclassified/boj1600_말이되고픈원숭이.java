@@ -1,22 +1,26 @@
+package ps.Unclassified;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-class Pair {
-	int first;
-	int second;
-	int k;
-	int move;
 
-	public Pair(int first, int second, int k, int move) {
-		this.first = first;
-		this.second = second;
-		this.k = k;
-		this.move = move;
+// bfs check 배열의 정의 방법
+public class boj1600_말이되고픈원숭이 {
+	static class Pair {
+		int first;
+		int second;
+		int k;
+		int move;
+
+		public Pair(int first, int second, int k, int move) {
+			this.first = first;
+			this.second = second;
+			this.k = k;
+			this.move = move;
+		}
 	}
-}
-
-public class Main {
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
