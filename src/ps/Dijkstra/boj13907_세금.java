@@ -53,8 +53,8 @@ public class boj13907_세금 {
         while(!pq.isEmpty()){
             Pair front = pq.poll();
 
-            if(maxLengths[front.v] == Integer.MAX_VALUE) maxLengths[front.v] = front.len + 1;
-            else if(maxLengths[front.v] <= front.len + 1) continue;
+            if(maxLengths[front.v] == Integer.MAX_VALUE) maxLengths[front.v] = front.len;
+            else if(maxLengths[front.v] <= front.len) continue;
 
             for(int i=1;i<=n;i++){
                 if(adjMat[front.v][i] != 0){
