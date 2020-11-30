@@ -1,4 +1,4 @@
-package baekjoon;
+package ps.Unclassified;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ class Pair{
 	}
 }
 
-public class Main{
+public class boj2261_가장가까운두점2{
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;

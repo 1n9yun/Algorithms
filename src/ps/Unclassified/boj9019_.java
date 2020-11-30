@@ -1,4 +1,4 @@
-package day0130;
+package ps.Unclassified;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,7 +16,7 @@ class Item{
 	}
 }
 
-public class Main {
+public class boj9019_ {
 	static char[] convert = {'D','S','L','R'};
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

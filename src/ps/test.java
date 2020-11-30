@@ -1,16 +1,21 @@
 package ps;
 
+import java.util.TreeSet;
+
 public class test {
 	public static void main(String[] args) {
-		out:
-		for(int i=0;i<10;i++) {
-			for(int j=0;j<10;j++) {
-				for(int k=0;k<10;k++) {
-					System.out.println(j + " " + k);
-					if(k == 5) break out;
-				}
-			}
-			System.out.println("에에에~~");
-		}
+		TreeSet<Integer> tset = new TreeSet<>((o1, o2) -> {
+			if(o1 > o2) return 1;
+			return -1;
+		});
+
+		tset.add(2);
+		tset.add(67);
+		tset.add(12);
+		tset.add(32);
+		tset.add(6);
+		tset.add(9);
+
+		System.out.println(tset.first());
 	}
 }
