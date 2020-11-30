@@ -1,21 +1,18 @@
 package ps;
 
-import java.util.TreeSet;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 public class test {
-	public static void main(String[] args) {
-		TreeSet<Integer> tset = new TreeSet<>((o1, o2) -> {
-			if(o1 > o2) return 1;
-			return -1;
-		});
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		List<Character> list = new ArrayList<>();
 
-		tset.add(2);
-		tset.add(67);
-		tset.add(12);
-		tset.add(32);
-		tset.add(6);
-		tset.add(9);
+		Random random = new Random();
 
-		System.out.println(tset.first());
+		for(int i=0;i<10;i++){
+			list.add((char) (random.nextInt() % 128));
+		}
+
+		System.out.println(Arrays.toString(list.stream().toArray()));
 	}
 }
