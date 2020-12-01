@@ -1,26 +1,31 @@
 package ps.구현;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class boj10816_숫자카드2 {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int n = sc.nextInt();
-		
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
 		Map<Integer, Integer> map = new HashMap<>();
-		
+
+		int n = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i=0;i<n;i++) {
-			int num = sc.nextInt();
+			int num = Integer.parseInt(st.nextToken());
 			map.put(num, map.containsKey(num) ? (map.get(num) + 1) : 1);
 		}
 		
-		int m = sc.nextInt();
+		int m = Integer.parseInt(br.readLine());
+		st = new StringTokenizer(br.readLine());
 		for(int i=0;i<m;i++) {
-			int num = sc.nextInt();
-			System.out.print((map.containsKey(num) ? map.get(num) : 0) + " ");
+			int num = Integer.parseInt(st.nextToken());
+			bw.write(map.getOrDefault(num, 0) + " ");
 		}
+		bw.flush();
 	}
 }
