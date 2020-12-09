@@ -25,8 +25,8 @@ public class boj18111_마인크래프트 {
 
         int ans = Integer.MAX_VALUE;
         int ansHeight = 0;
-        for(int height=256; height>=0; height--){
-            if(sum + b < height * n * m) continue;
+        for(int height=0; height<=256; height++){
+            if(sum + b < height * n * m) break;
             int time = 0;
             for(int i=0;i<n;i++){
                 for(int j=0;j<m;j++){
@@ -35,7 +35,7 @@ public class boj18111_마인크래프트 {
                     else time += (height - map[i][j]);
                 }
             }
-            if(time < ans){
+            if(time <= ans){
                 ans = time;
                 ansHeight = height;
             }
