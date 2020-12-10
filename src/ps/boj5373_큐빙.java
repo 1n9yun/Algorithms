@@ -69,8 +69,8 @@ public class boj5373_큐빙 {
                 pieces[i][2][2] = pieces[i][0][2];
                 pieces[i][0][2] = temp;
 
-                temp = pieces[i][0][2];
-                pieces[i][0][2] = pieces[i][1][0];
+                temp = pieces[i][0][1];
+                pieces[i][0][1] = pieces[i][1][0];
                 pieces[i][1][0] = pieces[i][2][1];
                 pieces[i][2][1] = pieces[i][1][2];
                 pieces[i][1][2] = temp;
@@ -78,8 +78,8 @@ public class boj5373_큐빙 {
                 Piece temp = pieces[i][1][2];
                 pieces[i][1][2] = pieces[i][2][1];
                 pieces[i][2][1] = pieces[i][1][0];
-                pieces[i][1][0] = pieces[i][0][2];
-                pieces[i][0][2] = temp;
+                pieces[i][1][0] = pieces[i][0][1];
+                pieces[i][0][1] = temp;
 
                 temp = pieces[i][0][2];
                 pieces[i][0][2] = pieces[i][2][2];
@@ -98,8 +98,8 @@ public class boj5373_큐빙 {
                 pieces[2][j][2] = pieces[0][j][2];
                 pieces[0][j][2] = temp;
 
-                temp = pieces[0][j][2];
-                pieces[0][j][2] = pieces[1][j][0];
+                temp = pieces[0][j][1];
+                pieces[0][j][1] = pieces[1][j][0];
                 pieces[1][j][0] = pieces[2][j][1];
                 pieces[2][j][1] = pieces[1][j][2];
                 pieces[1][j][2] = temp;
@@ -107,8 +107,8 @@ public class boj5373_큐빙 {
                 Piece temp = pieces[1][j][2];
                 pieces[1][j][2] = pieces[2][j][1];
                 pieces[2][j][1] = pieces[1][j][0];
-                pieces[1][j][0] = pieces[0][j][2];
-                pieces[0][j][2] = temp;
+                pieces[1][j][0] = pieces[0][j][1];
+                pieces[0][j][1] = temp;
 
                 temp = pieces[0][j][2];
                 pieces[0][j][2] = pieces[2][j][2];
@@ -206,57 +206,57 @@ public class boj5373_큐빙 {
                 }
             }
         }
-
-        void print(){
-            System.out.println(U);
-            for(int j=0;j<3;j++){
-                for(int k=0;k<3;k++){
-                    System.out.print(pieces[0][j][k].color[U]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println(D);
-            for(int j=0;j<3;j++){
-                for(int k=0;k<3;k++){
-                    System.out.print(pieces[2][j][k].color[D]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println(F);
-            for(int i=0;i<3;i++){
-                for(int k=0;k<3;k++){
-                    System.out.print(pieces[i][2][k].color[F]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println(B);
-            for(int i=0;i<3;i++){
-                for(int k=0;k<3;k++){
-                    System.out.print(pieces[i][0][k].color[B]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println(L);
-            for(int i=0;i<3;i++){
-                for(int j=0;j<3;j++){
-                    System.out.print(pieces[i][j][0].color[L]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println(R);
-            for(int i=0;i<3;i++){
-                for(int j=0;j<3;j++){
-                    System.out.print(pieces[i][j][2].color[R]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
+//
+//        void print(){
+//            System.out.println(U);
+//            for(int j=0;j<3;j++){
+//                for(int k=0;k<3;k++){
+//                    System.out.print(pieces[0][j][k].color[U]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println(D);
+//            for(int j=0;j<3;j++){
+//                for(int k=0;k<3;k++){
+//                    System.out.print(pieces[2][j][k].color[D]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println(F);
+//            for(int i=0;i<3;i++){
+//                for(int k=0;k<3;k++){
+//                    System.out.print(pieces[i][2][k].color[F]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println(B);
+//            for(int i=0;i<3;i++){
+//                for(int k=0;k<3;k++){
+//                    System.out.print(pieces[i][0][k].color[B]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println(L);
+//            for(int i=0;i<3;i++){
+//                for(int j=0;j<3;j++){
+//                    System.out.print(pieces[i][j][0].color[L]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println(R);
+//            for(int i=0;i<3;i++){
+//                for(int j=0;j<3;j++){
+//                    System.out.print(pieces[i][j][2].color[R]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//        }
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -276,8 +276,8 @@ public class boj5373_큐빙 {
                 else if(side == 'B') cube.rotate(B, dir == '+' ? 1 : -1);
                 else if(side == 'L') cube.rotate(L, dir == '+' ? 1 : -1);
                 else if(side == 'R') cube.rotate(R, dir == '+' ? 1 : -1);
+//                cube.print();
             }
-//            cube.print();
             cube.printAnswer();
         }
     }
