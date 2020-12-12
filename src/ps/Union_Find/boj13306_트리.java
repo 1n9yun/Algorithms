@@ -1,4 +1,4 @@
-package ps;
+package ps.Union_Find;
 
 import java.io.*;
 import java.util.ArrayList;
