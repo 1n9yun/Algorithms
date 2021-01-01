@@ -5,19 +5,16 @@ import java.util.*;
 
 public class test {
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		List<Character> list = new ArrayList<>();
+		System.out.println(Arrays.toString(getStringArray()));
+		System.out.println(getString());
+	}
 
-		Random random = new Random();
-
-		for(int i=0;i<10;i++){
-			int temp = 'a' + (Math.abs(random.nextInt()) % 26);
-			list.add((char) (temp));
-		}
-
-		System.out.println(Arrays.toString(list.stream().toArray()));
-		List<Character> subList = list.subList(5, list.size());
-		list.remove(0);
-		System.out.println(Arrays.toString(list.stream().toArray()));
-		System.out.println(Arrays.toString(subList.stream().toArray()));
+	static String[] getStringArray(){
+		return new String[]{"hi1", "hi2", "hi3"};
+	}
+	static String getString(){
+		String test = "Test";
+		String test2 = new String("하하");
+		return test2;
 	}
 }
