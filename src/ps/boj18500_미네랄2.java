@@ -50,15 +50,26 @@ public class boj18500_미네랄2 {
                 boolean[][] check = new boolean[r+1][c+1];
                 check[shootRow][shootCol] = true;
                 map[shootRow][shootCol] = '.';
+
 //                System.out.println("shoot! " + shootRow + " " + shootCol);
                 Cluster cluster = getCluster(shootRow - 1, shootCol, check);
-                if(cluster == null) cluster = getCluster(shootRow, shootCol + delta[shootDir][1], check);
+                if(cluster == null) {
+                    check = new boolean[r+1][c+1];
+                    check[shootRow][shootCol] = true;
+                    cluster = getCluster(shootRow, shootCol + delta[shootDir][1], check);
+                }
+                if(cluster == null) {
+                    check = new boolean[r+1][c+1];
+                    check[shootRow][shootCol] = true;
+                    cluster = getCluster(shootRow + 1, shootCol, check);
+                }
                 if(cluster != null){
                     List<Integer>[] list = cluster.list;
 //                    System.out.println("떨궈! " + cluster.min);
                     for(int row=r;row>=1;row--){
                         for(int col : list[row]){
                             map[row][col] = '.';
+//                            System.out.println(cluster.min);
                             map[row + cluster.min][col] = 'x';
                         }
                     }
@@ -102,6 +113,7 @@ public class boj18500_미네랄2 {
                 int nCol = p.c + dir[1];
                 if(1<=nRow && nRow<=r && 1<=nCol && nCol<=c && map[nRow][nCol] == 'x' && !check[nRow][nCol]){
 //                    System.out.println(nRow + " " + nCol);
+//                    System.out.println(nRow + " " + nCol + " 추가!");
                     check[nRow][nCol] = true;
                     q.add(new Pair(nRow, nCol));
                     maxRow[nCol] = Math.max(maxRow[nCol], nRow);
@@ -112,21 +124,57 @@ public class boj18500_미네랄2 {
 //        if(!fall) System.out.println("안떨어져!");
         if(!fall) return null;
 
+        
         int fallCount = 101;
 //        System.out.println(Arrays.toString(maxRow));
 
-        for(int i=1;i<=c;i++){
-            if(maxRow[i] == -1) continue;
-//            System.out.println("열 " + i);
-            int count = 0;
-            for(int h=maxRow[i]+1; h<=r; h++){
-                if(map[h][i] == '.') count++;
-//                System.out.println(count + " " + map[h][i] + " " + h + "행 " + i + "열");
-                if(h == r || map[h][i] == 'x') break;
-            }
-            fallCount = Math.min(fallCount, count);
-        }
+//        미네랄 1
+//        for(int i=1;i<=c;i++){
+//            if(maxRow[i] == -1) continue;
+////            System.out.println("열 " + i);
+//            int count = 0;
+//            for(int h=maxRow[i]+1; h<=r; h++){
+//                if(map[h][i] == '.') count++;
+////                System.out.println(count + " " + map[h][i] + " " + h + "행 " + i + "열");
+//                if(h == r || map[h][i] == 'x') break;
+//            }
+//            fallCount = Math.min(fallCount, count);
+//        }
+//        미네랄1
 
+//        미네랄2
+        for(int i=1;i<=r;i++){
+//            System.out.println("으이ㅣ?! " + list[i].size());
+            for(int j=0;j<list[i].size();j++){
+                int C = list[i].get(j);
+                int count = 0;
+                for(int h=i+1;h<=r;h++){
+//                    System.out.println("!!! " + h + " " + C + " !!!" + " " + count);
+                    if(map[h][C] == '.') count++;
+                    else if(map[h][C] == 'x'){
+                        if(check[h][C]) {
+//                            System.out.println("내꺼로군");
+                            count = 101;
+                        }
+                        break;
+                    }
+                }
+                fallCount = Math.min(fallCount, count);
+            }
+        }
+//        미네랄2
         return new Cluster(list, fallCount);
     }
 }
+
+
+//7 7
+//..xxx..
+//..x....
+//xxx.xxx
+//x.x...x
+//x.xxx.x
+//x.....x
+//x.....x
+//1
+//5
