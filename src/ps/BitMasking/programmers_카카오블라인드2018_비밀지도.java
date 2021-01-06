@@ -16,8 +16,8 @@ public class programmers_카카오블라인드2018_비밀지도 {
 
         for(int i=0;i<n;i++) arr1[i] |= (arr2[i] | 1<<n);
         for(int i=0;i<n;i++) answer[i] = Integer.toBinaryString(arr1[i])
-                .replaceAll("1", "#")
-                .replaceAll("0", " ")
+                .replace("1", "#")
+                .replace("0", " ")
                 .substring(1);
 
         return answer;

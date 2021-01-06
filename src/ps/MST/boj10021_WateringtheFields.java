@@ -47,7 +47,6 @@ public class boj10021_WateringtheFields {
                 Pair p2 = input.get(j);
 
                 int cost = (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-
                 if(cost >= c) pq.add(new Item(i, j, cost));
             }
         }
