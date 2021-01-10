@@ -17,16 +17,6 @@ public class boj16639_괄호추가하기3 {
         System.out.println(postfix);
         System.out.println(calc(postfix));
 
-        System.out.println(back(0, n, 1));
-    }
-
-//    1 == max, -1 == min
-    static int back(int left, int right, int minORmax){
-
-        int res = minORmax == 1 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-        for(int i=left;i<right;i++){
-
-        }
     }
 
     static String infixToPostfix(String input){
