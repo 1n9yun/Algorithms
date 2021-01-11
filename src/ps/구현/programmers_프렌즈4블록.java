@@ -1,4 +1,4 @@
-package ps;
+package ps.구현;
 
 import java.util.Arrays;
 
@@ -48,13 +48,11 @@ public class programmers_프렌즈4블록 {
 //            지우기
             for(int i=0;i<m;i++){
                 for(int j=0;j<n;j++){
-//                    System.out.print(check[i][j] ? 1 : 0);
                     if(check[i][j]) {
                         map[i][j] = ' ';
                         ans++;
                     }
                 }
-//                System.out.println();
             }
 //            내리기
             for(int i=0;i<n;i++){
@@ -64,10 +62,8 @@ public class programmers_프렌즈4블록 {
                 int target = row - 1;
                 while(map[target][i] == ' ' && target != 0) target--;
 
-//                System.out.println(i + ": " + row + " " + target);
                 while(row > target){
                     if(target == 0 && map[target][i] == ' ') break;
-//                    System.out.println("eraze : " + target);
                     map[row--][i] = map[target][i];
                     map[target--][i] = ' ';
 
@@ -75,7 +71,6 @@ public class programmers_프렌즈4블록 {
                     while(map[target][i] == ' ' && target != 0) target--;
                 }
             }
-//            for(char[] sub : map) System.out.println(Arrays.toString(sub));
         }
 
         return ans;

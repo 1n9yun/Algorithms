@@ -36,47 +36,43 @@ public class boj18500_미네랄2 {
             }
         }
 
-//        for(char[] sub : map) System.out.println(Arrays.toString(sub));
-
         int n = sc.nextInt();
         int shootDir = 3;
+        int nextDir = 2;
         for(int i=0;i<n;i++){
             int shootRow = (r+1) - sc.nextInt();
-//            System.out.println("row " + shootRow);
             for(int shootCol=shootDir == 2 ? c : 1;1<=shootCol && shootCol<=c;shootCol+=delta[shootDir][1]){
-//                System.out.println("col " + shootCol + " " + map[shootRow][shootCol]);
                 if(map[shootRow][shootCol] == '.') continue;
 
-                boolean[][] check = new boolean[r+1][c+1];
-                check[shootRow][shootCol] = true;
                 map[shootRow][shootCol] = '.';
 
-//                System.out.println("shoot! " + shootRow + " " + shootCol);
-                Cluster cluster = getCluster(shootRow - 1, shootCol, check);
-                if(cluster == null) {
-                    check = new boolean[r+1][c+1];
+                for(int dir=0;dir<delta.length;dir++){
+                    if(dir == nextDir) continue;
+
+                    int nRow = shootRow + delta[dir][0];
+                    int nCol = shootCol + delta[dir][1];
+                    if(!(1<=nRow && nRow<=r && 1<=nCol && nCol<=c) || map[nRow][nCol] == '.') continue;
+
+                    boolean[][] check = new boolean[r+1][c+1];
                     check[shootRow][shootCol] = true;
-                    cluster = getCluster(shootRow, shootCol + delta[shootDir][1], check);
-                }
-                if(cluster == null) {
-                    check = new boolean[r+1][c+1];
-                    check[shootRow][shootCol] = true;
-                    cluster = getCluster(shootRow + 1, shootCol, check);
-                }
-                if(cluster != null){
+                    Cluster cluster = getCluster(shootRow + delta[dir][0], shootCol + delta[dir][1], check);
+
+                    if(cluster == null) continue;
+
                     List<Integer>[] list = cluster.list;
-//                    System.out.println("떨궈! " + cluster.min);
                     for(int row=r;row>=1;row--){
                         for(int col : list[row]){
                             map[row][col] = '.';
-//                            System.out.println(cluster.min);
                             map[row + cluster.min][col] = 'x';
                         }
                     }
+                    break;
                 }
                 break;
             }
-            shootDir = shootDir == 2 ? 3 : 2;
+            int temp = shootDir;
+            shootDir = nextDir;
+            nextDir = temp;
         }
 
         for(int i=1;i<=r;i++){
@@ -88,18 +84,12 @@ public class boj18500_미네랄2 {
     }
 
     static Cluster getCluster(int row, int col, boolean[][] check){
-        if(!(1<=row && row<=r && 1<=col && col<=c)) return null;
-        if(check[row][col] || map[row][col] == '.') return null;
-//        System.out.println("헬룽 " + row + " " + col);
         List<Integer>[] list = new ArrayList[r+1];
         for(int i=0;i<list.length;i++) list[i] = new ArrayList<>();
 
         boolean fall = true;
-        int[] maxRow = new int[c+1];
-        Arrays.fill(maxRow, -1);
-        maxRow[col] = row;
-//        System.out.println(Arrays.toString(maxRow));
-//        r, c와 이어진 클러스터에서 미네랄들 좌표 리턴
+
+//        (row, col)과 이어진 클러스터에서 미네랄들 좌표 리턴
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(row, col));
         check[row][col] = true;
@@ -112,69 +102,29 @@ public class boj18500_미네랄2 {
                 int nRow = p.r + dir[0];
                 int nCol = p.c + dir[1];
                 if(1<=nRow && nRow<=r && 1<=nCol && nCol<=c && map[nRow][nCol] == 'x' && !check[nRow][nCol]){
-//                    System.out.println(nRow + " " + nCol);
-//                    System.out.println(nRow + " " + nCol + " 추가!");
                     check[nRow][nCol] = true;
                     q.add(new Pair(nRow, nCol));
-                    maxRow[nCol] = Math.max(maxRow[nCol], nRow);
-                    if(maxRow[nCol] == r) fall = false;
+                    if(nRow == r) fall = false;
                 }
             }
         }
-//        if(!fall) System.out.println("안떨어져!");
         if(!fall) return null;
 
-        
         int fallCount = 101;
-//        System.out.println(Arrays.toString(maxRow));
-
-//        미네랄 1
-//        for(int i=1;i<=c;i++){
-//            if(maxRow[i] == -1) continue;
-////            System.out.println("열 " + i);
-//            int count = 0;
-//            for(int h=maxRow[i]+1; h<=r; h++){
-//                if(map[h][i] == '.') count++;
-////                System.out.println(count + " " + map[h][i] + " " + h + "행 " + i + "열");
-//                if(h == r || map[h][i] == 'x') break;
-//            }
-//            fallCount = Math.min(fallCount, count);
-//        }
-//        미네랄1
-
-//        미네랄2
         for(int i=1;i<=r;i++){
-//            System.out.println("으이ㅣ?! " + list[i].size());
             for(int j=0;j<list[i].size();j++){
                 int C = list[i].get(j);
                 int count = 0;
                 for(int h=i+1;h<=r;h++){
-//                    System.out.println("!!! " + h + " " + C + " !!!" + " " + count);
                     if(map[h][C] == '.') count++;
                     else if(map[h][C] == 'x'){
-                        if(check[h][C]) {
-//                            System.out.println("내꺼로군");
-                            count = 101;
-                        }
+                        if(check[h][C]) count = 101;
                         break;
                     }
                 }
                 fallCount = Math.min(fallCount, count);
             }
         }
-//        미네랄2
         return new Cluster(list, fallCount);
     }
 }
-
-
-//7 7
-//..xxx..
-//..x....
-//xxx.xxx
-//x.x...x
-//x.xxx.x
-//x.....x
-//x.....x
-//1
-//5
