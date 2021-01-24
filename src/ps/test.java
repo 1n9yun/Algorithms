@@ -1,15 +1,19 @@
 package ps;
 
-import sun.awt.image.ImageWatched;
-
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
 
 public class test {
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		int[] answer = {};
+		String[] arr = new String[]{
+				"117",
+				"97674223",
+				"1195524421",
+				"1195524421985",
+				"1195524421112"
+		};
 
-		Array.setInt(answer, 0, 1);
+		Arrays.sort(arr);
+		System.out.println(Arrays.toString(arr));
 	}
 }
