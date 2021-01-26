@@ -39,6 +39,10 @@ public class boj1167_트리의지름 {
                 if(child == -1) break;
                 int cost = stoi(st.nextToken());
 
+//                트리라서 양방향 그래프이지만
+//                입력에서 보면 입력 자체가 양방향 모두를 주고있다.
+//                한 정점에서 연결된 간선들의 정보의 나열이기 때문에 렇다.
+//                그래서 양방향을 신경쓸 필요 없이 입력받는 대로 만들어주면 된다.ㅎ
                 tree[p].add(new Item(child, cost));
             }
         }
