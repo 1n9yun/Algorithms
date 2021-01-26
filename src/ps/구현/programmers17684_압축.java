@@ -18,6 +18,11 @@ public class programmers17684_압축 {
 
         for(int i=0;i<msg.length();i++){
             StringBuilder w = new StringBuilder(Character.toString(msg.charAt(i)));
+
+//            붙인 다음 toString 하는게 좋을 것 같다.
+//            w.toString() + msg.charAt(i) 에서 계속 버려지는 스트링 생겨서요
+//            stringbuilder에 추가를 해놓고 비교하는게 더 좋을 것 같다
+//            나는 확인 한 다음 추가를 하고 싶어서 이렇게 한 듯 한데 이득은 위에 말한 게 더 이득
             while(++i < msg.length() && dict.containsKey(w.toString() + msg.charAt(i))){
                 w.append(msg.charAt(i));
             }
