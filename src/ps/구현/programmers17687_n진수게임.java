@@ -1,12 +1,11 @@
 package ps.구현;
 
-public class programmers17687_n진수게임 {
-    public static void main(String[] args) {
-        System.out.println(solution(2, 4, 2, 1));
-        System.out.println(solution(16, 16, 2, 1));
-    }
+import org.junit.Test;
 
-    public static String solution(int n, int t, int m, int p) {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class programmers17687_n진수게임 {
+    public String solution(int n, int t, int m, int p) {
         StringBuilder answer = new StringBuilder();
         StringBuilder str = new StringBuilder();
 
@@ -19,7 +18,7 @@ public class programmers17687_n진수게임 {
         return answer.toString();
     }
 
-    static StringBuilder getnBase(int num, int n){
+    StringBuilder getnBase(int num, int n){
         StringBuilder sb = new StringBuilder();
 
         while(num / n >= 0){
@@ -32,5 +31,12 @@ public class programmers17687_n진수게임 {
         }
 
         return sb.reverse();
+    }
+
+    @Test
+    public void testSolution(){
+        assertThat(solution(2,4,2,1)).isEqualTo("0111");
+        assertThat(solution(16, 16,2,1)).isEqualTo("02468ACE11111111");
+        assertThat(solution(16, 16,2,2)).isEqualTo("13579BDF01234567");
     }
 }
