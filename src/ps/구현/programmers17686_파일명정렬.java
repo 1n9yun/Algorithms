@@ -3,13 +3,13 @@ package ps.구현;
 import java.util.Arrays;
 
 public class programmers17686_파일명정렬 {
-    static class Split{
+    static class Part {
         int idx;
         String head;
         String number;
         String original;
 
-        public Split(int idx, String head, String number, String original) {
+        public Part(int idx, String head, String number, String original) {
             this.idx = idx;
             this.head = head;
             this.number = number;
@@ -17,15 +17,15 @@ public class programmers17686_파일명정렬 {
         }
     }
     public String[] solution(String[] files) {
-        Split[] splits = new Split[files.length];
+        Part[] parts = new Part[files.length];
 
-        for(int i=0;i<splits.length;i++){
+        for(int i = 0; i< parts.length; i++){
             String head = "";
-            String number = "";
             int numStart = 0;
             int numEnd = 0;
             for(int j=0;j<files[i].length();j++){
                 char c = files[i].charAt(j);
+//                숫자가 시작되는 곳, 끝나는 곳을 찾고 시작되는곳 앞부분을 head로 지정
                 if(numStart == 0 && Character.isDigit(c)) {
                     head = files[i].substring(0, j).toLowerCase();
                     numStart = j;
@@ -34,11 +34,12 @@ public class programmers17686_파일명정렬 {
                     break;
                 }
             }
+//            위에서 찾은 시작 ~ 끝으로 최대 길이가 5인 number part를 만듬 
             if(numEnd == 0) numEnd = numStart + Math.min(files[i].length() - numStart, 5);
-            splits[i] = new Split(i, head, files[i].substring(numStart, numEnd), files[i]);
+            parts[i] = new Part(i, head, files[i].substring(numStart, numEnd), files[i]);
         }
 
-        Arrays.sort(splits, (s1, s2) -> {
+        Arrays.sort(parts, (s1, s2) -> {
             int equality = s1.head.compareTo(s2.head);
             if(equality > 0) return 1;
             else if(equality == 0){
@@ -51,7 +52,7 @@ public class programmers17686_파일명정렬 {
             return -1;
         });
 
-        for(int i=0;i<splits.length;i++) files[i] = splits[i].original;
+        for(int i = 0; i< parts.length; i++) files[i] = parts[i].original;
 
         return files;
     }
