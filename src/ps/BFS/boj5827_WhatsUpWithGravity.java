@@ -52,13 +52,6 @@ public class boj5827_WhatsUpWithGravity {
             }
         }
         start.r = fallTo[start.r][start.c][1];
-//        for(int i=0;i<n;i++){
-//            for(int j=0;j<m;j++){
-//                System.out.print(fallTo[i][j][0] + "," + fallTo[i][j][1] + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
 
         Queue<Item> q = new LinkedList<>();
 
@@ -87,9 +80,7 @@ public class boj5827_WhatsUpWithGravity {
                         check[fallenRow][nCol] = item.fliped;
                         q.add(new Item(new Pos(fallenRow, nCol), item.dir, item.fliped));
                     }
-//                    System.out.println("moved : " + fallenRow + ", " + nCol + " f" + item.fliped + ":d" + item.dir);
                 }
-//                else System.out.println("move fail");
             }
 //            flip
             int r_dir = item.dir * -1 + 1;
@@ -102,9 +93,7 @@ public class boj5827_WhatsUpWithGravity {
                     check[fallenRow][item.pos.c] = item.fliped + 1;
                     q.add(new Item(new Pos(fallenRow, item.pos.c), r_dir, item.fliped + 1));
                 }
-//                System.out.println("fliped : " + fallenRow + ", " + item.pos.c + " f" + (item.fliped + 1) + ":d" + r_dir);
             }
-//            else System.out.println("flip fail");
         }
 
         System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
