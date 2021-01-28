@@ -90,7 +90,8 @@ public class boj17837_새로운게임2 {
                         nCol = mals[i].c;
                     }
                 }
-                if(!outOfRange && map[nRow][nCol] == 1){
+//                움직이지 않는 경우는 뒤집으면 안돼
+                if(!outOfRange && map[nRow][nCol] == 1 && shouldMove){
 //                    빨
                     malMove.reverse();
                 }
@@ -101,8 +102,9 @@ public class boj17837_새로운게임2 {
                         mals[malMove.charAt(malIdx) - '0'].move(mals[i].dir);
                     }
                 }
-
-                print(n, map, malMap, mals);
+//                print(n, map, malMap, mals);
+//                sc.next();
+//                for(int t=0;t<20;t++) System.out.println();
                 if(malMap[nRow][nCol].length() >= 4) break out;
             }
         }
@@ -117,10 +119,18 @@ public class boj17837_새로운게임2 {
                 maxLength = Math.max(maxLength, malMap[i][j].length());
             }
 
+            if(maxLength == 0){
+                for(int j=1;j<=n;j++){
+                    System.out.print((map[i][j] == 0 ? "W" : map[i][j] == 1 ? "R" : map[i][j] == 2 ? "B" : "X") + "  ");
+                }
+                System.out.println();
+            }
             for (int mIdx = maxLength - 1; mIdx >= 0; mIdx--) {
                 for(int j=1;j<=n;j++) {
                     if(mIdx >= malMap[i][j].length()){
-                        System.out.print("   ");
+                        if(mIdx == 0)
+                            System.out.print((map[i][j] == 0 ? "W" : map[i][j] == 1 ? "R" : map[i][j] == 2 ? "B" : "X") + "  ");
+                        else System.out.print("   ");
                     }else{
                         char c = malMap[i][j].charAt(mIdx);
                         System.out.print(c + getArrow(mals[c - '0'].dir) + " ");
@@ -130,13 +140,13 @@ public class boj17837_새로운게임2 {
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.println("----------------------------------");
     }
-    static char getArrow(int dir){
-        if(dir == 1) return '→';
-        else if(dir == 2) return '←';
-        else if(dir == 3) return '↑';
-        else if(dir == 4) return '↓';
-        else return ' ';
+    static String getArrow(int dir){
+        if(dir == 1) return "→";
+        else if(dir == 2) return "←";
+        else if(dir == 3) return "↑";
+        else if(dir == 4) return "↓";
+        else return "";
     }
 }
