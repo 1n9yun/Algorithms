@@ -2,8 +2,8 @@ package ps.구현;
 
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,8 +13,7 @@ public class programmers17676_추석트래픽 {
         ArrayList<Integer> startTimes = new ArrayList<>();
         ArrayList<Integer> endTimes = new ArrayList<>();
 
-        for(int i = 0; i < lines.length; i++) {
-            String s = lines[i];
+        for (String s : lines) {
             String[] split = s.split(" ");
             String[] timeSplit = split[1].split(":");
 
@@ -31,11 +30,10 @@ public class programmers17676_추석트래픽 {
         endTimes.sort(Comparator.comparingInt(o -> o));
 
         int endIdx = 0;
-        for(int i=0;i<startTimes.size();i++){
+        for (int startTime : startTimes) {
             temp++;
-            int time = startTimes.get(i);
-            for(;endIdx<endTimes.size();endIdx++){
-                if(time - 999 > endTimes.get(endIdx)) temp--;
+            for (; endIdx < endTimes.size(); endIdx++) {
+                if (startTime - 999 > endTimes.get(endIdx)) temp--;
                 else break;
             }
             answer = Math.max(answer, temp);
