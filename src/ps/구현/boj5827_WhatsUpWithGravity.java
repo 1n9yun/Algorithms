@@ -1,4 +1,4 @@
-package ps.BFS;
+package ps.구현;
 
 import java.util.Arrays;
 import java.util.LinkedList;
