@@ -1,4 +1,4 @@
-package ps;
+package ps.DataStructure;
 
 import org.junit.Test;
 
