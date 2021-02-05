@@ -1,4 +1,4 @@
-package ps;
+package ps.규칙찾기;
 
 import org.junit.Test;
 

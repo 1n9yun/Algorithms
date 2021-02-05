@@ -1,4 +1,4 @@
-package ps;
+package ps.Trie;
 
 import org.junit.Test;
 
