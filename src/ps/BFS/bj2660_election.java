@@ -1,22 +1,20 @@
 package ps.BFS;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-class Pair{
-	int left;
-	int right;
-	public Pair(int left, int right) {
-		super();
-		this.left = left;
-		this.right = right;
-	}
-}
-
 public class bj2660_election {
+	static class Pair{
+		int left;
+		int right;
+		public Pair(int left, int right) {
+			super();
+			this.left = left;
+			this.right = right;
+		}
+	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		

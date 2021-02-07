@@ -1,8 +1,6 @@
 package ps.Dijkstra;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class boj9370_미확인도착지 {
@@ -27,12 +25,10 @@ public class boj9370_미확인도착지 {
     }
     static int stoi(String s) {return Integer.parseInt(s);}
     public static void main(String[] args) throws IOException {
-//        File in_file = new File("C:\\Users\\1n9yun\\Desktop\\D.in");
-//        File out_file = new File("C:\\Users\\1n9yun\\Desktop\\D.out");
+//        File in_file = new File("C:\\Users\\1n9yun\\Desktop\\test.txt");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 //        BufferedReader br = new BufferedReader(new FileReader(in_file));
-//        BufferedReader out = new BufferedReader(new FileReader(out_file));
 
         int TC = stoi(br.readLine());
         for(int tc=1;tc<=TC;tc++){
@@ -92,25 +88,6 @@ public class boj9370_미확인도착지 {
             }
             answer.stream().sorted().forEach(ans -> System.out.print(ans + " "));
             System.out.println();
-//            try {
-//                String result = "";
-//                List<Integer> list = answer.stream().sorted().collect(Collectors.toList());
-//                for (Integer num : list) result += (num + " ");
-//                result = result.substring(0, result.length() - 1);
-//
-//                String correctAnswer = out.readLine();
-//                System.out.println(result + " | " + correctAnswer);
-//                if (!result.equals(correctAnswer)) throw new Exception();
-//            }catch(Exception e){
-//                System.out.println("-------------------------------------");
-//                System.out.println(n + " " + m + " " + t);
-//                System.out.println(s + " " + g + " " + h);
-//                for(int i=1;i<=n;i++) System.out.println(i + " " + adjList[i]);
-//                System.out.println(candidates);
-//                System.out.println("-------------------------------------");
-//
-//                new Scanner(System.in).nextLine();
-//            }
         }
     }
 }
