@@ -94,6 +94,7 @@ public class Reference_boj11657_time_machine {
 		for(int i=1;i<=n;i++) adjList[i] = new ArrayList<>();
 		
 //		인접 리스트 만들기
+//		어차피 모든 간선을 검사하므로 간선의 리스트만 있어도 됨.
 		for(int i=0;i<m;i++) {
 			adjList[sc.nextInt()].add(new Edge(sc.nextInt(), sc.nextInt()));
 		}
