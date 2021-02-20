@@ -1,4 +1,4 @@
-package ps;
+package ps.Dijkstra;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +33,6 @@ public class boj10217_KCMTravel {
 
             adjList = new ArrayList[n+1];
             dp = new int[n+1][m+1];
-            for(int[] sub : dp) Arrays.fill(sub, MAX);
             for(int i=0;i<adjList.length;i++) adjList[i] = new ArrayList<>();
 
 //            1 ~ N 까지 가는거야
@@ -49,26 +48,30 @@ public class boj10217_KCMTravel {
             }
 
             PriorityQueue<Item> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.time));
+            for(int[] sub : dp) Arrays.fill(sub, MAX);
+            Arrays.fill(dp[1], 0);
             pq.addAll(adjList[1]);
 
             int answer = -1;
             while(!pq.isEmpty()){
                 Item item = pq.poll();
 
+//                처음으로 n에 도착한게 최소인 경우이니까 바로 break
                 if(item.to == n) {
                     answer = item.time;
                     break;
                 }
+//                이렇게해줘야 통과하네.. 이제 이렇게 해야겠음
                 if(dp[item.to][item.cost] < item.time) continue;
-
+//                if(dp[item.to][item.cost] != MAX) continue;
+//                dp[item.to][item.cost] = item.time;
+                
                 for(Item next : adjList[item.to]){
-                    if(item.cost + next.cost <= m) {
-                        int nextCost = next.cost + item.cost;
-                        int nextTime = next.time + item.time;
-                        if (dp[next.to][nextCost] > nextTime) {
-                            dp[next.to][nextCost] = nextTime;
-                            pq.add(new Item(next.to, nextCost, nextTime));
-                        }
+                    int nextCost = next.cost + item.cost;
+                    int nextTime = next.time + item.time;
+                    if(nextCost <= m && dp[next.to][nextCost] > nextTime) {
+                        dp[next.to][nextCost] = nextTime;
+                        pq.add(new Item(next.to, nextCost, nextTime));
                     }
                 }
             }
@@ -77,6 +80,8 @@ public class boj10217_KCMTravel {
 //            System.out.println(result == MAX ? "Poor KCM" : result);
         }
     }
+    
+//    백트래킹 펑펑
 //    static int back(int v, int cost){
 //        if(cost > m) return MAX;
 //        if(dp[v][cost] != MAX) return dp[v][cost];

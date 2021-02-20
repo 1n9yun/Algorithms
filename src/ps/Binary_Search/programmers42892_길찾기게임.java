@@ -8,6 +8,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class programmers42892_길찾기게임 {
+//    그냥 BST 만들고 순회하는 문제
     class BST{
         class Node{
             int idx;

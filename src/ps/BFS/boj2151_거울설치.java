@@ -23,6 +23,7 @@ public class boj2151_거울설치 {
         int n = sc.nextInt();
         char[][] map = new char[n][];
 
+//        시작하는 문 위치는 상관없음
         int doorRow = 0, doorCol = 0;
         for(int i=0;i<n;i++){
             map[i] = sc.next().toCharArray();
@@ -34,7 +35,8 @@ public class boj2151_거울설치 {
             }
         }
 
-        boolean[][][] check = new boolean[n][n][4];
+//        세로 방향인지 가로방향에서 왔는지만 알면 되지만 그게 0, 2로 정했으니까 3
+        boolean[][][] check = new boolean[n][n][3];
         check[doorRow][doorCol][0] = true;
         check[doorRow][doorCol][2] = true;
         Queue<Item> q = new LinkedList<>();
@@ -49,15 +51,17 @@ public class boj2151_거울설치 {
                 return;
             }
 
+//            반대되는 방향으로 이동
             int nDir = item.dir * -1 + 2;
             for(int dir=nDir;dir<=nDir+1;dir++){
                 int nRow = item.r + delta[dir][0];
                 int nCol = item.c + delta[dir][1];
 
                 while(true){
-                    if(!(0<=nRow && nRow<n && 0<=nCol && nCol<n) || check[nRow][nCol][dir] || map[nRow][nCol] == '*') break;
+//                    거울이나 문을 만날 때까지 그 방향으로 이동
+                    if(!(0<=nRow && nRow<n && 0<=nCol && nCol<n) || check[nRow][nCol][nDir] || map[nRow][nCol] == '*') break;
                     if(map[nRow][nCol] == '!' || map[nRow][nCol] == '#'){
-                        check[nRow][nCol][dir] = true;
+                        check[nRow][nCol][nDir] = true;
                         q.add(new Item(nRow, nCol, nDir, item.count + 1));
                     }
                     nRow += delta[dir][0];
