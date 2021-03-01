@@ -25,14 +25,17 @@ public class boj16954_움직이는미로탈출 {
                 if(map[i][j] == '#') wall.add(new Item(i, j));
             }
         }
-
+        
+//        각 시간 별로 이동하지 않았던 칸만 이동하기 위해
+        int[][] check = new int[n][n];
+        for(int[] sub : check) Arrays.fill(sub, -2);
         Queue<Item> q = new LinkedList<>();
         q.add(new Item(n-1, 0));
 
+//        가장 위의 벽의 바로 윗 줄에 도착하면 그냥 도착한 거나 다름이 없다
         int goal = -1;
         while(!q.isEmpty()){
             int size = q.size();
-
             while(size-- != 0) {
                 Item item = q.poll();
 
@@ -47,12 +50,14 @@ public class boj16954_움직이는미로탈출 {
                     int nRow = item.r + dir[0];
                     int nCol = item.c + dir[1];
 
-                    if (0 <= nRow && nRow < n && 0 <= nCol && nCol < n && map[nRow][nCol] == '.') {
+                    if (0 <= nRow && nRow < n && 0 <= nCol && nCol < n && map[nRow][nCol] == '.' && check[nRow][nCol] < goal) {
+                        check[nRow][nCol] = goal;
                         q.add(new Item(nRow, nCol));
                     }
                 }
             }
-
+            
+//            벽 내리기
             for(int i=wall.size()-1;i>=0;i--){
                 int r = wall.get(i).r;
                 int c = wall.get(i).c;

@@ -3,7 +3,6 @@ package ps.BFS;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,8 +15,11 @@ public class programmers42894_블록게임 {
         }
     }
     class Block{
+//        블록을 구성하는 좌표
         ArrayList<Item> points;
+//        이 좌표를 기준으로 상대좌표 처리하기 위함
         Item base;
+//        base 좌표에 대한 빈칸 좌표의 상대 좌표
         int[] blank;
         public Block(ArrayList<Item> points, Item base, int[] blank) {
             this.points = points;
@@ -25,6 +27,7 @@ public class programmers42894_블록게임 {
             this.blank = blank;
         }
     }
+//    각 블록 타입 별 빈 칸을 미리 저장
     HashMap<Integer, int[]> blankType = new HashMap<>();
     int[][] delta = {{-1,0}, {1,0}, {0,-1}, {0,1}};
     public int solution(int[][] board) {
@@ -48,6 +51,7 @@ public class programmers42894_블록게임 {
                 while(!q.isEmpty()){
                     Item item = q.poll();
 
+//                    base 좌표는 블록이 구성하는 각 좌표의 모든 행과 열 중 각각의 최소 값으로 구성된다.
                     base.r = Math.min(base.r, item.r);
                     base.c = Math.min(base.c, item.c);
                     points.add(item);
@@ -63,6 +67,7 @@ public class programmers42894_블록게임 {
                 }
 
                 int type = 0;
+//                각 블록을 구성하는 좌표를 상대좌표화하여 타입을 알아낸다.
                 for(Item item : points){
                     type |= 1<<((item.r - base.r) * 3 + (item.c - base.c));
                 }
@@ -71,17 +76,21 @@ public class programmers42894_블록게임 {
         }
 
         int answer = 0;
+//        제거할 블록이 없을 때
         while(!blocks.isEmpty()){
             Iterator<Block> it = blocks.iterator();
 
+//            제거할 수 없는 경우 break 하기 위함
             boolean removedSomething = false;
             while (it.hasNext()) {
                 Block block = it.next();
                 boolean possible = true;
                 for (int blank : block.blank) {
+//                    base 좌표를 이용하여 빈 칸의 절대좌표를 구함
                     int i = block.base.r + (blank / 3);
                     int j = block.base.c + (blank % 3);
-
+                    
+//                    위로 올라가면서 막혀있는지 확인
                     for(int r=i;r>=0;r--){
                         if(board[r][j] != 0) {
                             possible = false;
@@ -90,6 +99,7 @@ public class programmers42894_블록게임 {
                     }
                     if(!possible) break;
                 }
+//                다 안막혀 있으면 없애버리기
                 if (possible) {
                     for (Item point : block.points) board[point.r][point.c] = 0;
                     it.remove();

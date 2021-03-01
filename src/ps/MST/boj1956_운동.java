@@ -18,6 +18,9 @@ public class boj1956_운동 {
             costs[from][to] = cost;
         }
 
+//        플로이드 워셜
+//        사이클이라 함은 i -> j, j -> i 로 돌아오는 것.
+//        따라서 모든 서로 다른 두 정점간의 최소 거리를 구해놓고 하나씩 따져보면 됨.
         for(int k=1;k<=v;k++){
             for(int i=1;i<=v;i++){
                 if(k == i) continue;
