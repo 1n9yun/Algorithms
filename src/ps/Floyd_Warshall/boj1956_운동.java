@@ -1,4 +1,4 @@
-package ps.MST;
+package ps.Floyd_Warshall;
 
 import java.util.Scanner;
 
