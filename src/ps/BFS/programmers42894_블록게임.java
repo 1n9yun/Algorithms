@@ -3,6 +3,7 @@ package ps.BFS;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,14 +14,6 @@ public class programmers42894_블록게임 {
             this.r = r;
             this.c = c;
         }
-
-        @Override
-        public String toString() {
-            return "Item{" +
-                    "r=" + r +
-                    ", c=" + c +
-                    '}';
-        }
     }
     class Block{
         ArrayList<Item> points;
@@ -30,15 +23,6 @@ public class programmers42894_블록게임 {
             this.points = points;
             this.base = base;
             this.blank = blank;
-        }
-
-        @Override
-        public String toString() {
-            return "Block{" +
-                    "points=" + points +
-                    ", base=" + base +
-                    ", blank=" + Arrays.toString(blank) +
-                    '}';
         }
     }
     HashMap<Integer, int[]> blankType = new HashMap<>();
@@ -86,63 +70,82 @@ public class programmers42894_블록게임 {
             }
         }
 
-        int[][] prerequisite = new int[n][n];
-        for(int j=0;j<n;j++){
-            for(int i=1;i<n;i++){
-                if(board[i][j] == 0) prerequisite[i][j] = prerequisite[i-1][j];
-                else prerequisite[i][j] = i;
-            }
-        }
-
         int answer = 0;
         while(!blocks.isEmpty()){
             Iterator<Block> it = blocks.iterator();
 
             boolean removedSomething = false;
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Block block = it.next();
-
                 boolean possible = true;
-                for(int blank : block.blank){
+                for (int blank : block.blank) {
                     int i = block.base.r + (blank / 3);
                     int j = block.base.c + (blank % 3);
 
-                    if(board[prerequisite[i][j]][j] != 0) possible = false;
-                }
-                if(possible){
-                    for(Item point : block.points){
-                        board[point.r][point.c] = 0;
-                        prerequisite[point.r][point.c] = 0;
+                    for(int r=i;r>=0;r--){
+                        if(board[r][j] != 0) {
+                            possible = false;
+                            break;
+                        }
                     }
+                    if(!possible) break;
+                }
+                if (possible) {
+                    for (Item point : block.points) board[point.r][point.c] = 0;
                     it.remove();
                     removedSomething = true;
                     answer++;
                 }
             }
-            if(!removedSomething) break;
+            if (!removedSomething) break;
         }
         return answer;
     }
     public void init(){
-        blankType.put(1<<0 | 1<<3 | 1<<4 | 1<<6, new int[]{1,7});
-        blankType.put(1<<0 | 1<<1 | 1<<2 | 1<<4, new int[]{3,5});
-        blankType.put(1<<1 | 1<<3 | 1<<4 | 1<<7, new int[]{0,6});
-        blankType.put(1<<1 | 1<<3 | 1<<4 | 1<<5, new int[]{0,2});
+        blankType.put(getTypeKey(0, 3, 4, 6), new int[]{1,7});
+        blankType.put(getTypeKey(0, 1, 2, 4), new int[]{3,5});
+        blankType.put(getTypeKey(1, 3, 4, 7), new int[]{0,6});
+        blankType.put(getTypeKey(1, 3, 4, 5), new int[]{0,2});
 
-        blankType.put(1<<0 | 1<<1 | 1<<3 | 1<<6, new int[]{4,7});
-        blankType.put(1<<0 | 1<<1 | 1<<2 | 1<<5, new int[]{3,4});
-        blankType.put(1<<1 | 1<<3 | 1<<5 | 1<<6, new int[]{0,2});
-        blankType.put(1<<0 | 1<<3 | 1<<4 | 1<<5, new int[]{1,2});
+        blankType.put(getTypeKey(0, 1, 3, 6), new int[]{4,7});
+        blankType.put(getTypeKey(0, 1, 2, 5), new int[]{3,4});
+        blankType.put(getTypeKey(1, 4, 6, 7), new int[]{0,3});
+        blankType.put(getTypeKey(0, 3, 4, 5), new int[]{1,2});
 
-        blankType.put(1<<0 | 1<<1 | 1<<4 | 1<<7, new int[]{3,6});
-        blankType.put(1<<2 | 1<<3 | 1<<4 | 1<<5, new int[]{0,1});
-        blankType.put(1<<0 | 1<<3 | 1<<6 | 1<<7, new int[]{1,4});
-        blankType.put(1<<0 | 1<<1 | 1<<2 | 1<<3, new int[]{4,5});
+        blankType.put(getTypeKey(0, 1, 4, 7), new int[]{3,6});
+        blankType.put(getTypeKey(2, 3, 4, 5), new int[]{0,1});
+        blankType.put(getTypeKey(0, 3, 6, 7), new int[]{1,4});
+        blankType.put(getTypeKey(0, 1, 2, 3), new int[]{4,5});
+    }
+    public int getTypeKey(int... bits){
+        int result = 0;
+        for(int bit : bits) result |= 1<<bit;
+        return result;
     }
     
     @Test
     public void testSolution(){
         assertThat(solution(new int[][]{{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,4,0,0,0},{0,0,0,0,0,4,4,0,0,0},{0,0,0,0,3,0,4,0,0,0},{0,0,0,2,3,0,0,0,5,5},{1,2,2,2,3,3,0,0,0,5},{1,1,1,0,0,0,0,0,0,5}}))
                 .isEqualTo(2);
+        assertThat(solution(new int[][]{
+                {1, 1, 2},
+                {1, 0, 2},
+                {1, 2, 2}
+        })).isEqualTo(0);
+        assertThat(solution(new int[][]{
+                {0, 0, 1, 2, 3, 0},
+                {1, 1, 1, 2, 3, 0},
+                {4, 0, 2, 2, 3, 3},
+                {4, 0 ,0, 5, 0, 0},
+                {4, 4, 5, 5, 5, 0},
+                {0, 0, 0, 0, 0, 0}
+        })).isEqualTo(5);
+        assertThat(solution(new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 2, 2, 0, 0},
+                {0, 2, 1, 0, 0},
+                {0, 2, 1, 0, 0},
+                {0, 0, 1, 1, 0}
+        })).isEqualTo(1);
     }
 }
