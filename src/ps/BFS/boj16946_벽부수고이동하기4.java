@@ -84,11 +84,7 @@ public class boj16946_벽부수고이동하기4 {
         }
 
         for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-//                System.out.print(answer[i][j]);
-                bw.write(String.valueOf(answer[i][j]));
-            }
-//            System.out.println();
+            for(int j=0;j<m;j++) bw.write(String.valueOf(answer[i][j]));
             bw.write('\n');
         }
         bw.close();
