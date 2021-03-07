@@ -15,10 +15,6 @@ public class boj20946_합성인수분해 {
 
     static boolean solve(long n, ArrayList<Long> result){
         if(isPrimeNumber(n)) return false;
-        if(Math.sqrt(n) < 4) {
-            result.add(n);
-            return true;
-        }
 
         for(int i=4;i<=Math.sqrt(n);i++){
             if(isPrimeNumber(i)) continue;
